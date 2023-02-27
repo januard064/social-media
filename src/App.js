@@ -1,11 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, createContext, useEffect } from 'react';
+
+// import Pages
+import LandingPage from './Pages/LandingPage';
+
+// Create AppContext
+export const AppContext = createContext({});
+
 
 const App = () => {
+
+  const [initState, setInitState] = useState('HAI')
+
+  const AppContextValue = {
+    initState
+  }
+
   return (
-    <div>
-      APP PAge
-    </div>
+    <AppContext.Provider value={AppContextValue}>
+      <LandingPage />
+    </AppContext.Provider>
   )
 }
 
