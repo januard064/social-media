@@ -11,9 +11,9 @@ const UserList = (props) => {
     }
 
 
-    const { children, userId, username } = props
+    const { children, userId, username, userIdActive } = props
     return (
-        <div onClick={() => handleClick(userId)} style={{ width:'100%', marginBottom:20, cursor:'pointer', padding:8, backgroundColor:"#F5F5F5" }}>
+        <div onClick={() => handleClick(userId)} style={{ width: '100%', marginBottom: 20, cursor: 'pointer', padding: 8, backgroundColor: userId == userIdActive ? "#0000FF" : "#F5F5F5" }}>
             {username}
         </div>
     )

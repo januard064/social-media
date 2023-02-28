@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
-
 import { AppContext } from "../App";
 
+// import component from bootstrap
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 
@@ -11,11 +10,6 @@ const AlbumComponent = (props) => {
 
     const { photos } = useContext(AppContext)
 
-    const navigate = useNavigate()
-
-    const handleClick = (id) => {
-        // navigate(`/userpage/${id}`,)
-    }
 
     const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -52,18 +46,15 @@ const AlbumComponent = (props) => {
             </div>
 
             <Modal show={isModalOpen} onHide={handleCloseModal}>
-               
-                {/* <Modal.Body closeButton> */}
-                    <Card style={{ width: '100%' }}>
-                        <Card.Img variant="top" src={photoDetailId.url} />
-                        <Card.Body>
-                            <Card.Text>
-                                {photoDetailId.title}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
 
-                {/* </Modal.Body> */}
+                <Card style={{ width: '100%' }}>
+                    <Card.Img variant="top" src={photoDetailId.url} />
+                    <Card.Body>
+                        <Card.Text>
+                            {photoDetailId.title}
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
 
             </Modal>
         </>

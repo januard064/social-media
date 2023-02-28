@@ -31,7 +31,7 @@ const UserPage = () => {
                 <Col xs={3}>
                     <ListOfUserComponent>
                         {users.map((user) => (
-                            <UserList userId={user.id} username={user.username} />
+                            <UserList userId={user.id} username={user.username} userIdActive={userId} />
                         ))}
                     </ListOfUserComponent>
                 </Col>
@@ -42,15 +42,11 @@ const UserPage = () => {
                                 <PostComponent title={postUser.title} body={postUser.body} postsId={postUser.id} />
                             ))}
                         </LisOfPost>
-                        {/* <div style={{ display:'block' }}> */}
-                            {/* <div style={{ paddingLeft:8, marginBottom:20 }}>Albums</div> */}
-                            <ListOfAlbum>
-                                {albums.filter((album) => album.userId == userId).map((albumUser) => (
-                                    <AlbumComponent albumId={albumUser.id} title={albumUser.title} />
-                                ))}
-                            </ListOfAlbum>
-
-                        {/* </div> */}
+                        <ListOfAlbum>
+                            {albums.filter((album) => album.userId == userId).map((albumUser) => (
+                                <AlbumComponent albumId={albumUser.id} title={albumUser.title} />
+                            ))}
+                        </ListOfAlbum>
                     </div>
 
                 </Col>

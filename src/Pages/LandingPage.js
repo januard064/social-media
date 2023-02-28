@@ -28,7 +28,7 @@ const LandingPage = () => {
                 </Col>
                 <Col xs={9}>
                     <LisOfPost>
-                        {posts.filter((post) => post.userId == 1).map((postUser) => (
+                        {posts.map((postUser) => (
                             <PostComponent title={postUser.title} body={postUser.body} />
                         ))}
                     </LisOfPost>

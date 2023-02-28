@@ -48,38 +48,66 @@ const App = () => {
 
   const [comments, setComments] = useState([])
 
-  const [photos, setPhotos] = useState([]) 
+  const [photos, setPhotos] = useState([])
 
+  // api get user
   const getAllUser = () => {
     axios.get(`${baseURL}/users`).then((response) => {
       setUsers(response.data);
     });
   }
 
+  // api get posts
   const getAllPosts = () => {
     axios.get(`${baseURL}/posts`).then((response) => {
       setPosts(response.data);
     });
   }
 
+  // api get albums
   const getAllAlbums = () => {
     axios.get(`${baseURL}/albums`).then((response) => {
       setAlbums(response.data);
     });
   }
 
+  // api get comments
   const getAllComments = () => {
     axios.get(`${baseURL}/comments`).then((response) => {
       setComments(response.data);
     });
   }
 
+  // api get photos
   const getAllPhotos = () => {
     axios.get(`${baseURL}/photos`).then((response) => {
       setPhotos(response.data);
     });
   }
 
+  // add new comment
+  const addNewComment = (comment, postId) => {
+    comment.id = comments.length + 1
+    comment.email = "admin@mail.com"
+    comment.name = "ADMIN"
+    comment.postId = postId
+    setComments([...comments, comment])
+
+    console.log(comments)
+  }
+
+  // add posts
+  const addNewPosts = (post, userId) => {
+    post.id = posts.length + 1
+    post.userId = userId
+    setPosts([...posts, post])
+  }
+
+  // edit posts
+  const editPost = newPost => {
+    setPosts(posts.map(post => (post.id == newPost.id ? newPost : post)))
+
+  }
 
   useEffect(() => {
     getAllUser()
@@ -93,10 +121,20 @@ const App = () => {
   const AppContextValue = {
     initState,
     users,
+
     posts,
+    setPosts,
+    editPost,
+    addNewPosts,
+
     albums,
+
     comments,
-    photos
+    setComments,
+
+    photos,
+
+    addNewComment
   }
 
   return (
