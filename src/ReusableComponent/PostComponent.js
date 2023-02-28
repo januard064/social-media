@@ -19,7 +19,7 @@ const PostComponent = (props) => {
 
     const { comments, posts, setPosts, addNewComment, editPost } = useContext(AppContext)
 
-    const { children, title, body, postsId } = props
+    const { children, title, body, postsId, landingPage } = props
 
     // comment state for open
     const [isCommentOpen, setIsCommentOpen] = useState(false)
@@ -53,11 +53,13 @@ const PostComponent = (props) => {
         const { name, value } = e.target
         setNewComment({ ...newComment, [name]: value })
 
-        console.log(newComment)
     }
 
     const handleSubmitComment = (postId) => {
-        addNewComment(newComment, postId)
+        if (newComment.body != '') {
+            addNewComment(newComment, postId)
+            setNewComment(initComment)
+        }
     }
 
 
@@ -89,14 +91,17 @@ const PostComponent = (props) => {
     }
 
     const submitEditPost = (postsId) => {
-        editPost(currentPost)
-        setIsOpenEdit(false)
+        if (currentPost.body != '') {
+            editPost(currentPost)
+            setIsOpenEdit(false)
 
-        axios.put(`${baseURL}/posts/${postsId}`, {
-            data: currentPost
-        }).then((response) => {
-            console.log('afger', response.data);
-        })
+            axios.put(`${baseURL}/posts/${postsId}`, {
+                data: currentPost
+            }).then((response) => {
+                console.log('afger', response.data);
+            })
+        }
+
     }
 
 
@@ -105,51 +110,58 @@ const PostComponent = (props) => {
         <>
             <div style={{ width: '100%', marginBottom: 20, padding: 8, backgroundColor: "#F5F5F5" }}>
                 <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                    <Icon.Pencil onClick={() => handleOpenModalEdit(postsId)} />
+                    {landingPage ? (<>
+                    </>) : (
+                        <>
+                            <Icon.Pencil onClick={() => handleOpenModalEdit(postsId)} style={{ marginRight: 20, cursor: 'pointer' }} />
 
-                    <Icon.Trash3 onClick={() => deletePost(postsId)} />
+                            <Icon.Trash3 onClick={() => deletePost(postsId)} style={{ cursor: 'pointer' }} />
+                        </>
+                    )}
+
 
                 </div>
-                <div>{title}</div>
+                <div style={{ fontWeight: 600, marginBottom: 20 }}>{title}</div>
 
                 <div>{body}</div>
-                <div onClick={handleOpenComments} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', cursor: 'pointer' }}>
-                    See Comment
-                </div>
+
+                {landingPage ? (<>
+                </>) : (
+                    <div onClick={handleOpenComments} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', cursor: 'pointer' }}>
+                        See Comment
+                    </div>
+                )}
+
 
                 {/* <input value={postId} name="postId" onChange={handleChangeInput}  ></input> */}
 
 
                 {isCommentOpen &&
                     <>
-                        <input name="body" onChange={handleChangeInput} />
-
-                        <div onClick={() => handleSubmitComment(postsId)}>
-                            Submit
-                        </div>
-
                         {comments.filter((comment) => comment.postId == postsId).map((commentPost) => (
                             <div><CommentComponent postId={postsId} commentId={commentPost.id} email={commentPost.email} name={commentPost.name} body={commentPost.body} /></div>
                         ))}
-                    </>}
+
+                        <textarea name="body" onChange={handleChangeInput} style={{ width: '100%', }} value={newComment.body} />
+
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', cursor: 'pointer' }} onClick={() => handleSubmitComment(postsId)}>
+                            Submit
+                        </div>
+                    </>
+                }
             </div>
 
 
             <Modal show={isOpenEdit} onHide={() => setIsOpenEdit(false)}>
-
-                {/* <Modal.Body closeButton> */}
-                <Card style={{ width: '100%' }}>
+                <Card style={{ width: '100%', height: 320 }}>
                     <Card.Body>
                         <Card.Text>
-                            <input value={currentPost.title} name="title" onChange={onHandleChange} style={{ width: '100%', marginBottom:10 }} />
-                            <textarea value={currentPost.body} name="body" onChange={onHandleChange} style={{ width: '100%' }} />
+                            <input value={currentPost.title} name="title" onChange={onHandleChange} style={{ width: '100%', marginBottom: 10 }} />
+                            <textarea value={currentPost.body} name="body" onChange={onHandleChange} style={{ width: '100%', height: 200 }} />
                         </Card.Text>
-                        <div onClick={() => submitEditPost(postsId)}>Submit</div>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', cursor: 'pointer' }} onClick={() => submitEditPost(postsId)}>Submit</div>
                     </Card.Body>
                 </Card>
-
-                {/* </Modal.Body> */}
-
             </Modal>
         </>
     )

@@ -6,6 +6,10 @@ import { AppContext } from "../App";
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 
+import axios from "axios";
+
+import { baseURL } from "../Utils/serverAPI";
+
 const AlbumComponent = (props) => {
 
     const { photos } = useContext(AppContext)
@@ -25,9 +29,16 @@ const AlbumComponent = (props) => {
 
     const handleOpenDetailPhotos = (id) => {
         // setPhotoDetailId(id)
-        let photo = photos.filter((photo) => photo.id == id)[0]
-        setPhotoDetailId(photo)
-        console.log(photo)
+        // let photo = photos.filter((photo) => photo.id == id)[0]
+        // setPhotoDetailId(photo)
+        // console.log(photo)
+
+        // using axios api to get detail photo
+        axios.get(`${baseURL}/photos/${id}`).then((response) => {
+            setPhotoDetailId(response.data)
+            console.log(response.data)
+        })
+        
         handleOpenModal()
     }
 

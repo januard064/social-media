@@ -17,7 +17,7 @@ const LandingPage = () => {
     const { initState, users, posts } = useContext(AppContext)
 
     return (
-        <Container fluid style={{ width: '100%', marginTop: 90 }}>
+        <Container fluid style={{ width: '100%', marginTop: 90, paddingTop:20 }}>
             <Row>
                 <Col xs={3}>
                     <ListOfUserComponent>
@@ -27,9 +27,9 @@ const LandingPage = () => {
                     </ListOfUserComponent>
                 </Col>
                 <Col xs={9}>
-                    <LisOfPost>
+                    <LisOfPost landingPage={true}>
                         {posts.map((postUser) => (
-                            <PostComponent title={postUser.title} body={postUser.body} />
+                            <PostComponent title={postUser.title} body={postUser.body} landingPage={true} />
                         ))}
                     </LisOfPost>
                 </Col>

@@ -26,7 +26,7 @@ const UserPage = () => {
     const { initState, users, posts, albums } = useContext(AppContext)
 
     return (
-        <Container fluid style={{ width: '100%', marginTop: 90, height: "calc(100vh - 90px)" }}>
+        <Container fluid style={{ width: '100%', marginTop: 90, height: "calc(100vh - 110px)", paddingTop:20 }}>
             <Row>
                 <Col xs={3}>
                     <ListOfUserComponent>

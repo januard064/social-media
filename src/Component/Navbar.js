@@ -7,13 +7,13 @@ import { Outlet } from 'react-router-dom';
 function TextLinkExample() {
     return (
         <>
-            <Navbar fixed="top" style={{ height:90, backgroundColor:'white' }}>
+            <Navbar fixed="top" style={{ height:90, backgroundColor:'#008ECC', paddingLeft:10 }}>
                 <Container style={{  marginLeft:0}} >
                     <Navbar.Brand >Social-Media</Navbar.Brand>
 
                 </Container>
             </Navbar>
-                
+
             <Outlet />
         </>
 
